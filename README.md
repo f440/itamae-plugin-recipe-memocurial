@@ -15,8 +15,6 @@ gem "itamae-plugin-recipe-memocurial",
   git: "https://github.com/f440/itamae-plugin-recipe-memocurial.git"
 ```
 
-Execute it with: itamae ssh -h ... recipe.rb.
-
 And then execute:
 
     $ bundle
