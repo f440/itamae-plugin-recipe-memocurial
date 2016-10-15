@@ -1,0 +1,14 @@
+[Unit]
+Description=Memocurial
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=/usr/bin/docker run --rm -v <%= node[:memocurial][:data] %>:/app/var --entrypoint "bin/buildout" <%= node[:memocurial][:image] %>
+ExecStartPre=/usr/bin/docker run --rm -v <%= node[:memocurial][:data] %>:/app/var <%= node[:memocurial][:image] %> init-db
+ExecStart=/usr/bin/docker run --rm -p <%= node[:memocurial][:port] %>:5000 --name %n -v <%= node[:memocurial][:data] %>:/app/var <%= node[:memocurial][:image] %> runserver -h 0.0.0.0
+ExecStop=/usr/bin/docker stop -t 3 %n
+
+[Install]
+WantedBy=multi-user.target

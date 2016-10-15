@@ -18,7 +18,6 @@ gem "itamae-plugin-recipe-memocurial",
 And then execute:
 
     $ bundle
-
 ## Usage
 
 Write a following line to your itamae recipe.
@@ -28,6 +27,14 @@ Write a following line to your itamae recipe.
 
 include_recipe "memocurial"
 ```
+
+## Attributes
+
+| Name                                          | Value    | Default              | Required     |
+| -------------------------------------------   | -------- | -------------------- | ------------ |
+| `[:memocurial][:port]`                        | Number   | 5000                 | No           |
+| `[:memocurial][:data]`                        | String   | /var/lib/memocurial  | No           |
+| `[:memocurial][:image]`                       | String   | f440/memocurial      | No           |
 
 ## Contributing
 

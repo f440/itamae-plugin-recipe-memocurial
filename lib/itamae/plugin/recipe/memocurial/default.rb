@@ -1,3 +1,18 @@
+node[:memocurial] ||= {}
+node[:memocurial][:port] ||= 5000
+node[:memocurial][:data] ||= "/var/lib/memocurial"
+node[:memocurial][:image] ||= "f440/memocurial:latest"
+
+node.validate! do
+  {
+    memocurial: {
+      port: optional(integer),
+      data: optional(string),
+      image: optional(string)
+    }
+  }
+end
+
 execute "systemctl-daemon-reload" do
   command "/bin/systemctl --system daemon-reload"
   action :nothing
@@ -9,7 +24,7 @@ end
 
 package "docker.io"
 
-remote_file "/etc/systemd/system/memocurial.service" do
+template "/etc/systemd/system/memocurial.service" do
   owner "root"
   group "root"
   notifies :run, "execute[systemctl-daemon-reload]", :immediately
